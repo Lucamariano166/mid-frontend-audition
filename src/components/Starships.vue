@@ -10,9 +10,10 @@
           hide-details="auto"
           placeholder="Buscar"
           variant="solo"
-            
+          
         />
         
+       
       </div>
       <h2 class="text-h6 font-weight-bold mx-4">Starships</h2>
       <div v-if="loading">
@@ -24,6 +25,9 @@
       <v-table
         v-else
         density="compact"
+        :headers="headers"
+      :items="desserts"
+      :search="search"
         
       >
         <thead>
@@ -62,7 +66,9 @@
           </tr>
         </tbody>
       </v-table>
-  
+      <div class="text-center">
+   
+  </div>
   </v-container>
 </template>
 <script setup>
@@ -73,6 +79,7 @@ const starships = ref(null);
 
 onMounted(() => {
   getStarships();
+  
 })
 
 function getStarships() {
@@ -88,6 +95,5 @@ function getStarships() {
       loading.value = false;
     });
 }
-
 
 </script>
