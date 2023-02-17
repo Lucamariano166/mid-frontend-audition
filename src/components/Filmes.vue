@@ -2,7 +2,7 @@
   <v-container class="fill-height">
     
       <div class="d-flex align-center bg-primary pa-2 mb-3">
-        <h1 class="text-h3 font-weight-bold mx-2">Star Wars Library</h1>
+        <h1 class="text-h3 font-weight-bold mx-2">Filmes</h1>
         <v-spacer />
         <v-text-field
           bg-color="white rounded-pill mx-2"
@@ -14,7 +14,7 @@
         />
         
       </div>
-      <h2 class="text-h6 font-weight-bold mx-4">People</h2>
+      <h2 class="text-h6 font-weight-bold mx-4">Films</h2>
       <div v-if="loading">
         <v-progress-linear
           indeterminate
@@ -28,29 +28,29 @@
         <thead>
           <tr>
             <th class="text-left">
-              Name
+              Title
             </th>
             <th class="text-right">
-              Gender
+              Director
             </th>
             <th class="text-right">
-              Birth year
+              Release Date
             </th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="person in people"
-            :key="person.id"
+            v-for="filmes in films"
+            :key="filmes.id"
           >
             <td class="text-left">
-              {{ person.name }}
+              {{ filmes.title }}
             </td>
             <td class="text-right">
-              {{ person.gender }}
+              {{ filmes.director }}
             </td>
             <td class="text-right">
-              {{ person.birth_year }}
+              {{ filmes.release_date }}
             </td>
           </tr>
         </tbody>
@@ -62,17 +62,17 @@
 import { ref, onMounted } from 'vue'
 import { http } from '@/services/swapi';
 const loading = ref(false);
-const people = ref(null);
+const films = ref(null);
 
 onMounted(() => {
-  getPeople();
+  getFilmes();
 })
 
-function getPeople() {
+function getFilmes() {
   loading.value = true;
-  http.get('people')
+  http.get('films')
     .then(({ data }) => {
-      people.value = data.results;
+      films.value = data.results;
     })
     .catch((error) => {
       alert(error);

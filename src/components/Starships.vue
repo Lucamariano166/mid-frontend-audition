@@ -2,7 +2,7 @@
   <v-container class="fill-height">
     
       <div class="d-flex align-center bg-primary pa-2 mb-3">
-        <h1 class="text-h3 font-weight-bold mx-2">Star Wars Library</h1>
+        <h1 class="text-h3 font-weight-bold mx-2">Naves Estelares</h1>
         <v-spacer />
         <v-text-field
           bg-color="white rounded-pill mx-2"
@@ -14,7 +14,7 @@
         />
         
       </div>
-      <h2 class="text-h6 font-weight-bold mx-4">People</h2>
+      <h2 class="text-h6 font-weight-bold mx-4">Starships</h2>
       <div v-if="loading">
         <v-progress-linear
           indeterminate
@@ -24,33 +24,40 @@
       <v-table
         v-else
         density="compact"
+        
       >
         <thead>
           <tr>
             <th class="text-left">
               Name
             </th>
-            <th class="text-right">
-              Gender
+            <th class="text-center">
+              Model
+            </th>
+            <th class="text-center">
+              Passengers
             </th>
             <th class="text-right">
-              Birth year
+              Starship Class
             </th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="person in people"
-            :key="person.id"
+            v-for="naves in starships"
+            :key="naves.id"
           >
             <td class="text-left">
-              {{ person.name }}
+              {{ naves.name }}
+            </td>
+            <td class="text-center">
+              {{ naves.model }}
+            </td>
+            <td class="text-center">
+              {{ naves.passengers }}
             </td>
             <td class="text-right">
-              {{ person.gender }}
-            </td>
-            <td class="text-right">
-              {{ person.birth_year }}
+              {{ naves.starship_class }}
             </td>
           </tr>
         </tbody>
@@ -62,17 +69,17 @@
 import { ref, onMounted } from 'vue'
 import { http } from '@/services/swapi';
 const loading = ref(false);
-const people = ref(null);
+const starships = ref(null);
 
 onMounted(() => {
-  getPeople();
+  getStarships();
 })
 
-function getPeople() {
+function getStarships() {
   loading.value = true;
-  http.get('people')
+  http.get('starships')
     .then(({ data }) => {
-      people.value = data.results;
+      starships.value = data.results;
     })
     .catch((error) => {
       alert(error);

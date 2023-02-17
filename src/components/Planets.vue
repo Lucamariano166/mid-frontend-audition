@@ -2,7 +2,7 @@
   <v-container class="fill-height">
     
       <div class="d-flex align-center bg-primary pa-2 mb-3">
-        <h1 class="text-h3 font-weight-bold mx-2">Star Wars Library</h1>
+        <h1 class="text-h3 font-weight-bold mx-2">Planets</h1>
         <v-spacer />
         <v-text-field
           bg-color="white rounded-pill mx-2"
@@ -14,7 +14,7 @@
         />
         
       </div>
-      <h2 class="text-h6 font-weight-bold mx-4">People</h2>
+      <h2 class="text-h6 font-weight-bold mx-4">Planets</h2>
       <div v-if="loading">
         <v-progress-linear
           indeterminate
@@ -31,26 +31,26 @@
               Name
             </th>
             <th class="text-right">
-              Gender
+              Diameter
             </th>
             <th class="text-right">
-              Birth year
+              Population
             </th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="person in people"
-            :key="person.id"
+            v-for="planeta in planets"
+            :key="planeta.id"
           >
             <td class="text-left">
-              {{ person.name }}
+              {{ planeta.name }}
             </td>
             <td class="text-right">
-              {{ person.gender }}
+              {{ planeta.diameter }}
             </td>
             <td class="text-right">
-              {{ person.birth_year }}
+              {{ planeta.population }}
             </td>
           </tr>
         </tbody>
@@ -62,17 +62,17 @@
 import { ref, onMounted } from 'vue'
 import { http } from '@/services/swapi';
 const loading = ref(false);
-const people = ref(null);
+const planets = ref(null);
 
 onMounted(() => {
-  getPeople();
+  getPlanets();
 })
 
-function getPeople() {
+function getPlanets() {
   loading.value = true;
-  http.get('people')
+  http.get('planets')
     .then(({ data }) => {
-      people.value = data.results;
+      planets.value = data.results;
     })
     .catch((error) => {
       alert(error);

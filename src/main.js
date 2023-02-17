@@ -11,10 +11,14 @@ import App from './App.vue'
 import { createApp } from 'vue'
 
 // Plugins
-import { registerPlugins } from '@/plugins'
+import { registerPlugins } from '@/components/plugins'
+
+
 
 const app = createApp(App)
 
 registerPlugins(app)
 
 app.mount('#app')
+
+
